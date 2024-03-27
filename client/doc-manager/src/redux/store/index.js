@@ -5,7 +5,11 @@ import { fileService } from "../services/service";
 export const store = configureStore({
   reducer: {
     [fileService.reducerPath]: fileService.reducer,
-  }
+  },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({ serializableCheck: false }).concat(
+            fileService.middleware
+        ),
 });
 
 setupListeners(store.dispatch);

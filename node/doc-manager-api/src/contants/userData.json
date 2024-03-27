@@ -1,0 +1,21 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "jose jackson",
+      "email": "josejackson@gmail.com",
+      "password": "josejackson123",
+      "address": "49371 William Meadow, West Savannah, ID 42522",
+      "filePath": [
+      ]
+    },
+    {
+      "id": 2,
+      "name": "angela",
+      "email": "angela15@gmail.com",
+      "password": "angela123",
+      "address": "130 Lane Harbor, Mullinsstad, LA 82572",
+      "filePath": []
+    }
+  ]
+}

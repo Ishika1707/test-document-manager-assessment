@@ -22,7 +22,7 @@ const AddFile = () => {
 
     return (
         <div style={{display: "flex"}}>
-            <label>Select files from drive files</label>
+            <label style={{paddingRight:"20px"}}>Select files from drive files</label>
                     <input
                         type="file"
                         name="files"
