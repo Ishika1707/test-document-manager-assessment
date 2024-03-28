@@ -95,6 +95,32 @@ const login = async (req, res) => {
     }
 };
 
+//Get User Files
+const getFilesByUserId = (req, res) => {
+    try {
+        const { userId } = req.query;
+        fs.readFile(filePath, "utf8", async (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            const userData = JSON.parse(data);
+            const user = await findUser(userData, userId);
+
+            if (!user) {
+                res.status(400).json({ success: false, message: "User not found" });
+                return;
+            }
+
+            return res
+                .status(200)
+                .json({ success: true, message: "Files Get successfully", data: user });
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
 module.exports = {
-  AddFile, login
+  AddFile, login, getFilesByUserId
 };

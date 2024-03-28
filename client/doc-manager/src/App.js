@@ -6,6 +6,7 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import Login from "./components/Login/login";
+import Layout from "./components/Layout/layout";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
             path: "/",
             element: (
                 <>
-                    {token ? <AddFile /> : <Navigate to="/login" replace />}
+                    {token ? <Layout /> : <Navigate to="/login" replace />}
                 </>
             ),
         },

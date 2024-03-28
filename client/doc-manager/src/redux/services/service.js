@@ -6,22 +6,35 @@ export const fileService = createApi({
   }),
   endpoints: (builder) => ({
       addFile: builder.mutation({
-      query: (body) => ({
-        url: "/api/upload",
-        method: "POST",
-        body: body,
+          query: (body) => ({
+            url: "/api/upload",
+            method: "POST",
+            body: body,
+          }),
       }),
-    }),
       Login: builder.mutation({
-      query: (data) => ({
-          url: `/api/login`,
-          method: "POST",
-          body: data,
+          query: (data) => ({
+              url: `/api/login`,
+              method: "POST",
+              body: data,
+          }),
       }),
-  }),
+      getUserFiles: builder.query({
+          query: (userId) => ({
+              url: `/api/file?userId=${userId}`,
+              method: "GET",
+          })
+      }),
+      deleteFile: builder.mutation({
+          query: (data) => ({
+              url: `/api/file`,
+              method: "DELETE",
+              body: data,
+          }),
+      }),
   }),
 });
 
 export const {
-  useAddFileMutation, useLoginMutation
+  useAddFileMutation, useLoginMutation, useGetUserFilesQuery, useDeleteFileMutation
 } = fileService;
