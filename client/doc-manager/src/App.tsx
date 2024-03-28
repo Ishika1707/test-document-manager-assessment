@@ -1,5 +1,4 @@
 import './App.css';
-import AddFile from "./components/AddFile/addFile.js";
 import {
     createBrowserRouter,
     Navigate,
@@ -7,6 +6,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login/login";
 import Layout from "./components/Layout/layout";
+import React from 'react';
 
 
 function App() {
