@@ -4,19 +4,19 @@ import {
     useDeleteFileMutation,
     useGetUserFilesQuery,
 } from "../../redux/services/service";
-import FileIcon from "../Constants/constants";
+import FileIcon from "../../constants/constants";
 import GetFile from "../GetFile/getFile";
 
 const AddFile = () => {
-    const [addFile, { isSuccess }] = useAddFileMutation();
+    const [addFile, { isSuccess }] : any = useAddFileMutation();
 
-    const [deleteFile, {isSuccess: del_isSuccess}] = useDeleteFileMutation();
+    const [deleteFile, {isSuccess: del_isSuccess}] : any = useDeleteFileMutation();
 
     const user = JSON.parse(localStorage.getItem("user") || "null");
 
-    let userId = user?.id;
+    const userId: any = user?.id;
 
-    const {data, refetch} = useGetUserFilesQuery(userId);
+    const {data, refetch} : any = useGetUserFilesQuery(userId);
 
     useEffect(() => {
         if (isSuccess) {
@@ -24,10 +24,10 @@ const AddFile = () => {
         }
     }, [isSuccess]);
 
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState<any>([]);
 
-    const handleFileUpload = (e) => {
-        const file = Array.from(e.target.files);
+    const handleFileUpload = (e: any) => {
+        const file: any = Array.from(e.target.files);
         setFiles([...files, file[0]]);
         const formData = new FormData();
         formData.append("userId", user?.id);
@@ -35,7 +35,7 @@ const AddFile = () => {
         addFile(formData);
         e.target.value = null;
     };
-    const handelDelete = (file) => {
+    const handelDelete = (file: any) => {
         const data = {
             userId: user?.id,
             version: file?.version,
@@ -77,7 +77,7 @@ const AddFile = () => {
 
                 <div className="w-[50%] h-[400px] hideScrollbar py-4 overflow-y-auto">
                     <ul>
-                        {data?.data?.filePath?.map((file, index) => (
+                        {data?.data?.filePath?.map((file: any, index: number) => (
                             <li
                                 className="flex items-center justify-between gap-2"
                                 key={index}
@@ -122,9 +122,9 @@ const AddFile = () => {
                                         onClick={() => handelDelete(file)}
                                     >
                                         <path
-                                            fill-rule="evenodd"
+                                            fillRule="evenodd"
                                             d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                                            clip-rule="evenodd"
+                                            clipRule="evenodd"
                                         />
                                     </svg>
                                 </div>

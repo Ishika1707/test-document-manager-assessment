@@ -9,21 +9,21 @@ import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
 import AddFile from "../AddFile/addFile";
 
 const navigation = [
     { id: 1, name: "Dashboard", href: "/", icon: HomeIcon, current: true },
 ];
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
 }
 
 export default function Layout() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [id, setId] = useState();
+    const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
     return (
         <>

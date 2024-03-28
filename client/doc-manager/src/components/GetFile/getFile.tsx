@@ -1,38 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGetFileByVersionMutation } from "../../redux/services/service";
-import FileIcon from "../Constants/constants";
+import FileIcon from "../../constants/constants";
 
-class FormDataType {
-    constructor(name, version) {
-        this.name = name;
-        this.version = version;
-    }
+type FormDataType = {
+    name: string;
+    version: string;
 };
 
-class QueryDataType {
-    constructor(name, version, userId) {
-        this.name = name;
-        this.version = version;
-        this.userId = userId;
-    }
+type QueryDataType = {
+    userId: number;
+    name: string;
+    version: string;
 };
 
 function GetFile() {
     const user = JSON.parse(localStorage.getItem("user") || "null");
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormDataType>({
         name: "",
         version: "",
     });
 
-    const [getFileByVersion, { isError, error, isSuccess, data: Data }] = useGetFileByVersionMutation();
+    const data: QueryDataType | any = {
+        userId: user?.id,
+        name: formData.name,
+        version: formData.version,
+    };
 
-    const handleChange = (e) => {
+    const [
+        getFileByVersion,
+        { isError, isLoading, error, isSuccess, data: Data },
+    ]: any = useGetFileByVersionMutation();
+
+    const handleChange = (e: any) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handelSubmit = (e) => {
+    const handelSubmit = (e: any) => {
         e.preventDefault();
-        const data = new  QueryDataType (formData.name,Number(formData.version), user?.id);
+        const data: QueryDataType | any = {
+            userId: user?.id,
+            name: formData.name,
+            version: Number(formData.version),
+        };
         getFileByVersion(data);
         setFormData({
             name: "",
@@ -154,9 +163,9 @@ function GetFile() {
                                             className="w-5 h-5 text-red-600 cursor-pointer"
                                         >
                                             <path
-                                                fill-rule="evenodd"
+                                                fillRule="evenodd"
                                                 d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                                                clip-rule="evenodd"
+                                                clipRule="evenodd"
                                             />
                                         </svg>
                                     </div>

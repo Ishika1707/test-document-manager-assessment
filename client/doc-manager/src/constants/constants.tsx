@@ -1,8 +1,8 @@
 import {FaFile, FaFileExcel, FaFileImage, FaFilePdf, FaFileWord} from "react-icons/fa";
 import React from "react";
 
-const FileIcon = ({ extension, size = 30 }) => {
-    const mapExtensionToIcon = {
+const FileIcon = ({ extension, size = 30 }: any) => {
+    const mapExtensionToIcon: any = {
         pdf: { icon: <FaFilePdf size={size} />, color: "red" },
         doc: { icon: <FaFileWord size={size} />, color: "blue" },
         docx: { icon: <FaFileWord size={size} />, color: "blue" },

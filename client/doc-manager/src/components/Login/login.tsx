@@ -1,13 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import * as yup from "yup";
 import { Formik } from "formik";
-import {useLoginMutation} from "../../redux/services/service";
+import { useLoginMutation } from "../../redux/services/service";
 
-const data = {
+interface dataTypes {
+    email: string;
+    password: string;
+}
+const data: dataTypes = {
     email: "",
     password: "",
 };
-
 const dataSchema = yup.object().shape({
     password: yup.string().required("Password is required*"),
     email: yup
@@ -21,20 +24,34 @@ const dataSchema = yup.object().shape({
 });
 
 export default function Login() {
-    const [Login, { isError, error, isSuccess, data: Data }] =
+    const [Login, { isError, error, isSuccess, data: Data }]: any =
         useLoginMutation();
+    const formRef: any = useRef();
 
-    const formRef = useRef();
-    const handelLogin = async (values) => {
+    const handelLogin = async (values: any) => {
         Login(values);
     };
 
     useEffect(() => {
         if (isSuccess) {
             localStorage.setItem("user", JSON.stringify(Data?.data));
-            window.location.replace(process.env.REACT_APP_CLINETURL);
+            window.location.replace(process.env.REACT_APP_CLINETURL as any);
         }
     }, [isSuccess, Data]);
+
+    useEffect(() => {
+        const handleKeyPress = (event: any) => {
+            if (event.key === "Enter") {
+                if (formRef.current) {
+                    formRef?.current.handleSubmit();
+                }
+            }
+        };
+        document.addEventListener("keydown", handleKeyPress);
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+        };
+    }, []);
 
     return (
         <>
