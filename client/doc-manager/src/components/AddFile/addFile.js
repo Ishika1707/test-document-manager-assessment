@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-
-import {
-    FaFile,
-    FaFileImage,
-    FaFilePdf,
-    FaFileWord,
-    FaFileExcel,
-} from "react-icons/fa";
 import {
     useAddFileMutation,
     useDeleteFileMutation,
     useGetUserFilesQuery,
 } from "../../redux/services/service";
+import FileIcon from "../Constants/constants";
+import GetFile from "../GetFile/getFile";
 
 const AddFile = () => {
     const [addFile, { isSuccess }] = useAddFileMutation();
@@ -39,31 +33,8 @@ const AddFile = () => {
         formData.append("userId", user?.id);
         formData.append("file", file[0]);
         addFile(formData);
+        e.target.value = null;
     };
-
-    const FileIcon = ({ extension, size = 30 }) => {
-        const mapExtensionToIcon = {
-            pdf: { icon: <FaFilePdf size={size} />, color: "red" },
-            doc: { icon: <FaFileWord size={size} />, color: "blue" },
-            docx: { icon: <FaFileWord size={size} />, color: "blue" },
-            xls: { icon: <FaFileExcel size={size} />, color: "green" },
-            xlsx: { icon: <FaFileExcel size={size} />, color: "green" },
-            jpg: { icon: <FaFileImage size={size} />, color: "orange" },
-            jpeg: { icon: <FaFileImage size={size} />, color: "orange" },
-            png: { icon: <FaFileImage size={size} />, color: "orange" },
-        };
-
-        const defaultIcon = { icon: <FaFile size={size} />, color: "black" };
-        const { icon, color } =
-        mapExtensionToIcon[extension.toLowerCase()] || defaultIcon;
-
-        return (
-            <span style={{ color, display: "flex", alignItems: "center" }}>
-        {icon}
-      </span>
-        );
-    };
-
     const handelDelete = (file) => {
         const data = {
             userId: user?.id,
@@ -99,6 +70,7 @@ const AddFile = () => {
                         </div>
                     </div>
                 </div>
+                <GetFile/>
                 <div className="flex flex-col items-center justify-center">
                     <p className="text-[30px] font-[400] py-4">List of uploaded files by you</p>
                 </div>

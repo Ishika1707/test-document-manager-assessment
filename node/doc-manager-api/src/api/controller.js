@@ -4,7 +4,7 @@ const {
   findUser,
   findExistingFile,
 } = require("../api/service.js");
-const {findUserByEmail, passwordMatch} = require("./service");
+const {findUserByEmail, passwordMatch, getVersionFile} = require("./service");
 
 const filePath = path.join(__dirname, "../contants/userData.json");
 
@@ -172,6 +172,40 @@ const deleteFile = async (req, res) => {
     }
 };
 
+//Get File by Versions
+const getVersion = (req, res) => {
+    try {
+        const { userId, version, name } = req.body;
+        fs.readFile(filePath, "utf8", async (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            const userData = JSON.parse(data);
+            const user = await findUser(userData, userId);
+            const versionFile = await getVersionFile(user, version, name);
+
+            if (!user) {
+                res.status(400).json({ success: false, message: "User not found" });
+                return;
+            }
+
+            if (!versionFile) {
+                res.status(400).json({ success: false, message: "File not found" });
+                return;
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: "Files Get successfully",
+                data: versionFile,
+            });
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
 module.exports = {
-  AddFile, login, getFilesByUserId, deleteFile
+  AddFile, login, getFilesByUserId, deleteFile, getVersion
 };

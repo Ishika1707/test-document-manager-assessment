@@ -32,9 +32,20 @@ export const fileService = createApi({
               body: data,
           }),
       }),
+      getFileByVersion: builder.mutation({
+          query: (data) => ({
+              url: `/api/file-version`,
+              method: "Post",
+              body: data,
+          }),
+  }),
   }),
 });
 
 export const {
-  useAddFileMutation, useLoginMutation, useGetUserFilesQuery, useDeleteFileMutation
+    useAddFileMutation,
+    useLoginMutation,
+    useGetUserFilesQuery,
+    useDeleteFileMutation,
+    useGetFileByVersionMutation
 } = fileService;
