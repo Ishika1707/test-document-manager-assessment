@@ -4,6 +4,7 @@ const {
   findUser,
   findExistingFile,
 } = require("../api/service.js");
+const {findUserByEmail, passwordMatch} = require("./service");
 
 const filePath = path.join(__dirname, "../contants/userData.json");
 
@@ -61,6 +62,39 @@ const AddFile = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        fs.readFile(filePath, "utf8", async (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            const userData = JSON.parse(data);
+            const user = await findUserByEmail(userData, email);
+            const password_Match = await passwordMatch(userData, password);
+
+            if (!user) {
+                res.status(400).json({ success: false, message: "User not found" });
+                return;
+            }
+            if (!password_Match) {
+                res
+                    .status(400)
+                    .json({ success: false, message: "Invalid Credentials" });
+                return;
+            }
+            res.status(200).json({
+                success: true,
+                message: "User Login successfully",
+                data: user,
+            });
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
 module.exports = {
-  AddFile
+  AddFile, login
 };

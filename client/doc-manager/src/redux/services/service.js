@@ -5,16 +5,23 @@ export const fileService = createApi({
     baseUrl: process.env.REACT_APP_BASEURL,
   }),
   endpoints: (builder) => ({
-    addFile: builder.mutation({
+      addFile: builder.mutation({
       query: (body) => ({
         url: "/api/upload",
         method: "POST",
         body: body,
       }),
-    })
+    }),
+      Login: builder.mutation({
+      query: (data) => ({
+          url: `/api/login`,
+          method: "POST",
+          body: data,
+      }),
+  }),
   }),
 });
 
 export const {
-  useAddFileMutation
+  useAddFileMutation, useLoginMutation
 } = fileService;
