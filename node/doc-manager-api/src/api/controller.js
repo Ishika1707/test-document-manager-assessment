@@ -121,6 +121,57 @@ const getFilesByUserId = (req, res) => {
     }
 };
 
+const deleteFile = async (req, res) => {
+    try {
+        const { userId, version, name } = req.body;
+
+        fs.readFile(filePath, "utf8", async (err, data) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ success: false, message: "Error reading file" });
+                return;
+            }
+
+            const userData = JSON.parse(data);
+            const user = await findUser(userData, userId);
+
+            if (!user) {
+                res.status(400).json({ success: false, message: "User not found" });
+                return;
+            }
+
+            const fileIndex = user.filePath.findIndex(
+                (file) => file.version === version && file.name === name
+            );
+
+            if (fileIndex === -1) {
+                res.status(400).json({ success: false, message: "File not found" });
+                return;
+            }
+
+            user.filePath.splice(fileIndex, 1); // Remove the file from user's file list
+
+            const updatedJsonData = JSON.stringify(userData, null, 2);
+            fs.writeFile(filePath, updatedJsonData, (err) => {
+                if (err) {
+                    console.error(err);
+                    res
+                        .status(500)
+                        .json({ success: false, message: "Error writing file" });
+                    return;
+                }
+
+                res
+                    .status(200)
+                    .json({ success: true, message: "File deleted successfully" });
+            });
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
 module.exports = {
-  AddFile, login, getFilesByUserId
+  AddFile, login, getFilesByUserId, deleteFile
 };
