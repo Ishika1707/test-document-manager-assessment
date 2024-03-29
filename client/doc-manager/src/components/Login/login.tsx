@@ -63,7 +63,7 @@ export default function Login() {
                 validateOnBlur={false}
                 validateOnChange={false}
                 onSubmit={(values) => {
-                    handelLogin(values).then(r => {});
+                    handelLogin(values).then();
                 }}
             >
                 {({
