@@ -17,5 +17,6 @@ The API project is a NodeJS project.
 5. `$ npm start` to start the Node server.
 6. It should start the node server on port 5556 port
 
-##
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
+**Note**: Once the project is up and running, you will see a login page. User credentials can be found in node js project under src/constants/user.json file. When you upload any file from front end, you can see the json is updated with the file name and version under particular user who is uploading the file. Also the file is added in the uploads folder in node.
+
+Please feel free to reach out to me incase of any issues - mukherjee.ishika1707@gmail.com
