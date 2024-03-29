@@ -17,6 +17,6 @@ The API project is a NodeJS project.
 5. `$ npm start` to start the Node server.
 6. It should start the node server on port 5556 port
 
-**Note**: Once the project is up and running, you will see a login page. User credentials can be found in node js project under src/constants/user.json file. When you upload any file from front end, you can see the json is updated with the file name and version under particular user who is uploading the file. Also the file is added in the uploads folder in node.
+**Note**: Once the project is up and running, you will see a login page. User credentials can be found in node js project under src/constants/user.json file. When you upload any file from front end, you can see the json is updated with the file name and version under particular user who is uploading the file. Also the file is added in the uploads folder in node. To  view the file just type the filename and version. For example - if you have uploaded the file "abcd.pdf", just type abcd and 0 in the get file page. You will see the file will be fetched and you can view it clicking on eye icon. 
 
 Please feel free to reach out to me incase of any issues - mukherjee.ishika1707@gmail.com
