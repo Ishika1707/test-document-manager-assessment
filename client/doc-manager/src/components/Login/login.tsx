@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { useLoginMutation } from "../../redux/services/service";
+import { Box, TextField, Typography } from "@mui/material";
 
 interface dataTypes {
     email: string;
@@ -37,7 +38,7 @@ export default function Login() {
             localStorage.setItem("user", JSON.stringify(Data?.data));
             window.location.replace(process.env.REACT_APP_CLINETURL as any);
         }
-    }, [isSuccess, Data]);
+    }, [isSuccess]);
 
     useEffect(() => {
         const handleKeyPress = (event: any) => {
@@ -69,7 +70,7 @@ export default function Login() {
                       values,
                       errors,
                       handleChange,
-                      handleSubmit
+                      handleSubmit,
                   }) => (
                     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -85,74 +86,62 @@ export default function Login() {
 
                         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                             <form className="space-y-6" action="#" method="POST">
-                                <div>
-                                    <label
-                                        htmlFor="email"
-                                        className="block text-sm font-medium leading-6 text-gray-900"
-                                    >
-                                        Email address
-                                    </label>
-                                    <div className="mt-2">
-                                        <input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            autoComplete="email"
-                                            value={values.email}
-                                            onChange={handleChange}
-                                            className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        />
-                                    </div>
+                                <Box>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Email*"
+                                        variant="outlined"
+                                        sx={{ width: "400px" }}
+                                        name="email"
+                                        type="email"
+                                        value={values.email}
+                                        onChange={handleChange}
+                                    />
+
                                     {errors.email && (
                                         <p className="text-red-700 text-[14px]">{errors.email}</p>
                                     )}
-                                </div>
+                                </Box>
 
-                                <div>
-                                    <div className="flex items-center justify-between">
-                                        <label
-                                            htmlFor="password"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                        >
-                                            Password
-                                        </label>
-                                        <div className="text-sm">
-                                            <a
-                                                href="#"
-                                                className="font-semibold text-indigo-900 hover:text-indigo-900"
-                                            >
-                                                Forgot password?
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="mt-2">
-                                        <input
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            autoComplete="current-password"
-                                            value={values.password}
-                                            onChange={handleChange}
-                                            className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        />
-                                    </div>
+                                <Box>
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Password*"
+                                        variant="outlined"
+                                        sx={{ width: "400px" }}
+                                        name="password"
+                                        type="password"
+                                        value={values.password}
+                                        onChange={handleChange}
+                                    />
+
                                     {errors.password && (
                                         <p className="text-red-700 text-[14px]">
                                             {errors.password}
                                         </p>
                                     )}
-                                </div>
+                                </Box>
 
-                                <div>
-                                    <div
-                                        onClick={(e) => {
+                                <Box>
+                                    <Box
+                                        onClick={() => {
                                             handleSubmit();
                                         }}
-                                        className="flex cursor-pointer w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                        sx={{
+                                            background: "black",
+                                            color: "white",
+                                            py: 1,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            width: "400px",
+                                            borderRadius: "5px",
+                                            cursor: "pointer",
+                                        }}
                                     >
-                                        Sign in
-                                    </div>
-                                </div>
+                                        <Typography> Sign in</Typography>
+                                    </Box>
+                                </Box>
                             </form>
 
                             {isError && (

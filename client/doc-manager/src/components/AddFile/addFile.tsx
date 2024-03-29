@@ -4,7 +4,6 @@ import {
     useDeleteFileMutation,
     useGetUserFilesQuery,
 } from "../../redux/services/service";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -13,11 +12,7 @@ import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import FileIcon from "../../constants/constants";
-
-const Demo = styled("div")(({ theme }) => ({
-    backgroundColor: theme.palette.background.paper,
-}));
+import {Demo, FileIcon} from "../../constants/constants";
 
 const AddFile = () => {
     const [addFile, { isSuccess }] : any = useAddFileMutation();
@@ -37,7 +32,7 @@ const AddFile = () => {
     }, [isSuccess]);
 
     const [files, setFiles] = useState<any>([]);
-    const [dense, setDense] = React.useState(false);
+    const [dense] = React.useState(false);
 
     const handleFileUpload = (e: any) => {
         const file: any = Array.from(e.target.files);
@@ -90,7 +85,7 @@ const AddFile = () => {
                 <Box sx={{ flexGrow: 1, width: "600px", mt: 4 }}>
                     <Demo>
                         {data?.data?.filePath?.map((file: any, index: number) => (
-                            <List dense={dense}>
+                            <List dense={dense} key={file.name+index}>
                                 <ListItem
                                     secondaryAction={
                                         <>

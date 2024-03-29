@@ -1,7 +1,8 @@
 import {FaFile, FaFileExcel, FaFileImage, FaFilePdf, FaFileWord} from "react-icons/fa";
 import React from "react";
+import {styled} from "@mui/material/styles";
 
-const FileIcon = ({ extension, size = 30 }: any) => {
+export const FileIcon = ({ extension, size = 30 }: any) => {
     const mapExtensionToIcon: any = {
         pdf: { icon: <FaFilePdf size={size} />, color: "red" },
         doc: { icon: <FaFileWord size={size} />, color: "blue" },
@@ -24,4 +25,7 @@ const FileIcon = ({ extension, size = 30 }: any) => {
     );
 };
 
-export default FileIcon;
+export const Demo = styled("div")(({ theme }) => ({
+    backgroundColor: theme.palette.background.paper,
+}));
+

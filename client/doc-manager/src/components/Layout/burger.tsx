@@ -156,17 +156,17 @@ export default function Burger() {
         </DrawerHeader>
         <Divider />
         <List>
-          {navigation?.map((text: any, index) => (
-            <Link to={text.href}>
-              <ListItem key={text} disablePadding>
+          {navigation?.map((item: any) => (
+            <Link to={item.href} key={item.name}>
+              <ListItem key={item} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <text.icon
+                    <item.icon
                       className="h-6 w-6 shrink-0 text-white"
                       aria-hidden="true"
                     />
                   </ListItemIcon>
-                  <ListItemText primary={text?.name} />
+                  <ListItemText primary={item?.name} />
                 </ListItemButton>
               </ListItem>
               <Divider sx={{ background: "gray" }} />

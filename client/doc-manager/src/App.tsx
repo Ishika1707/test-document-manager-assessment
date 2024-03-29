@@ -5,8 +5,8 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import Login from "./components/Login/login";
-import Layout from "./components/Layout/layout";
 import React from 'react';
+import Burger from "./components/Layout/burger";
 
 
 function App() {
@@ -16,7 +16,15 @@ function App() {
             path: "/",
             element: (
                 <>
-                    {token ? <Layout /> : <Navigate to="/login" replace />}
+                    {token ? <Burger /> : <Navigate to="/login" replace />}
+                </>
+            ),
+        },
+        {
+            path: "/file",
+            element: (
+                <>
+                    {token ? <Burger /> : <Navigate to="/login" replace />}
                 </>
             ),
         },
